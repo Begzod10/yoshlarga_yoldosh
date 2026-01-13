@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F5F1ED">
-    <title>Uzbek Content Categories</title>
+    <title>Bilim - O'zbek Kontent Kategoriyalari</title>
     <style>
         * {
             margin: 0;
@@ -67,7 +67,7 @@
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
             color: var(--text-primary);
             padding: 0.5rem;
@@ -76,6 +76,7 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            border-radius: var(--border-radius);
         }
 
         .back-button:active {
@@ -241,6 +242,172 @@
             font-weight: bold;
         }
 
+        /* ==================== IMPROVED IMAGE GALLERY ==================== */
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 0;
+        }
+
+        @media (min-width: 768px) {
+            .image-gallery {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .image-gallery {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .image-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            aspect-ratio: 1 / 1;
+            background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .image-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        @media (hover: hover) {
+            .image-item:hover img {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Image Overlay */
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            color: white;
+            padding: 0.75rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .image-item:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .image-overlay {
+                font-size: 0.7rem;
+                padding: 0.5rem;
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -3rem;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-prev {
+            left: 1rem;
+        }
+
+        .lightbox-next {
+            right: 1rem;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: -2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.875rem;
+        }
+
         /* Video Gallery */
         .video-gallery {
             display: grid;
@@ -285,27 +452,19 @@
             }
         }
 
-        .video-thumbnail {
+        .video-wrapper {
             width: 100%;
-            height: 140px;
-            background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            font-size: 2.5rem;
+            max-width: 100%;
+            height: 76%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
         }
 
-        .play-icon {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .video-info {
@@ -318,11 +477,6 @@
             color: var(--text-primary);
             margin-bottom: 0.5rem;
             line-height: 1.3;
-        }
-
-        .video-duration {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
         }
 
         /* Animations */
@@ -373,6 +527,9 @@
         <div class="header-content">
             <div class="logo">📚 Bilim</div>
             <button class="back-button" id="backBtn" aria-label="Orqaga qaytish">←</button>
+            <button style="display: flex; font-size: 1.3rem; border: 1px solid;" class="back-button" id="testBtn"
+                aria-label="Test yechish">Test
+                yechish</button>
         </div>
     </header>
 
@@ -388,27 +545,88 @@
         </div>
     </main>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <button class="lightbox-nav lightbox-prev" onclick="changeLightboxImage(-1)">‹</button>
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+        </div>
+        <button class="lightbox-nav lightbox-next" onclick="changeLightboxImage(1)">›</button>
+    </div>
+
     <script>
-        // Data
+        // Lightbox functionality
+        let currentLightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        function openLightbox(images, index) {
+            currentLightboxImages = images;
+            currentLightboxIndex = index;
+            updateLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightboxImage(direction) {
+            currentLightboxIndex += direction;
+            if (currentLightboxIndex < 0) currentLightboxIndex = currentLightboxImages.length - 1;
+            if (currentLightboxIndex >= currentLightboxImages.length) currentLightboxIndex = 0;
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            document.getElementById('lightboxImage').src = currentLightboxImages[currentLightboxIndex];
+            document.getElementById('lightboxCounter').textContent =
+                `${currentLightboxIndex + 1} / ${currentLightboxImages.length}`;
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightboxImage(-1);
+            if (e.key === 'ArrowRight') changeLightboxImage(1);
+        });
+
+        // Data with improved images
         const categories = [
             {
                 id: 1,
                 title: "Hayot Mazmuni",
                 emoji: "🌟",
                 description: "Hayot ma'nosi va maqsadini tushunish",
-                fullDescription: "Hayot mazmuni - bu insan faoliyatining eng asosiy jihati. Bu bo'limda biz hayotning haqiqiy ma'nosi, maqsadi va bugungi dunyoda o'z o'rnimizni topish yo'llari haqida gaplashamiz.",
+                fullDescription: "Hayot mazmuni — bu insonning kim ekanini va nima uchun yashayotganini anglash jarayonidir. Har bir inson hayotida sinovlar, yo'qotishlar va tanlovlar bo'ladi. Ushbu bo'lim hayotga chuqurroq nigoh bilan qarashga, qadriyatlarni aniqlashga va ongli yashashga undaydi.\n\n\"Hayotning ma'nosi — unga berilgan savollarga qanday javob berishingda.\" — Viktor Frankl",
+                images: [
+                    "https://images.unsplash.com/photo-1519834785169-98be25ec3f84?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1473830394358-91588751b241?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1465101162946-4377e57745c3?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Hayot mazmunini tushunish uchun ba'zi metodologik yondashuvlar:\n• Shaxsiy qiymatlarni aniqlash\n• Maqsadlarni belgilash va amalga oshirish\n• O'z ichiga sig'diradigan hayot falsafasini yaratish",
-                    psixolog: "Psixolog bilan ishlash sizga hayot maqsadlarini aniqlashtirish va ichki tinchlikka erishishda yordam beradi.",
-                    ijtimoiy: "Ijtimoiy rollarimiz bizning hayot mazmunimizni tashkil etadi. Oila, ish va do'stlar bizni o'zimizni bilib tanish-tarafini turli tomonchalarda hal qilishga olib keladi.",
-                    trening: "Sayohatlar qiling va yangi tajribalar bilan tanishing, yangi narsalarni o'rganing"
+                    metodika: "Hayot mazmunini anglash bu bir martalik qaror emas, balki uzluksiz jarayondir. Inson o'z hayot yo'lida turli bosqichlardan o'tadi va har bir bosqichda mazmun boshqacha ko'rinish oladi.\n\nBirinchi qadam — shaxsiy qadriyatlarni aniqlash. Qanday qadriyatlar siz uchun muhim: oila, bilim, e'tiqod, foydalilik yoki erkinlik? Bu savollarga javob hayot yo'nalishini belgilaydi.\n\nIkkinchi bosqich — hayotiy tajribalarni tahlil qilish. O'tmishdagi xatolar va yutuqlar insonni shakllantiradi. Ularni inkor etish emas, tushunish muhim.\n\nUchinchi bosqich — ongli tanlov qilish. Har bir qaror mas'uliyat talab qiladi va hayot mazmunini mustahkamlaydi.\n\nSo'nggi bosqich — hayot falsafasini shakllantirish. Inson nimaga ishonishini va nima uchun yashayotganini bilsa, ichki barqarorlikka erishadi.",
+                    psixolog: "Psixologiya nuqtai nazaridan hayot mazmuni ichki ehtiyojlar bilan chambarchas bog'liq. Inson faqat tashqi muvaffaqiyat bilan emas, ichki qoniqish bilan ham yashaydi.\n\nViktor Frankl nazariyasiga ko'ra, inson eng og'ir sharoitlarda ham hayotiga ma'no bera oladi. Bu ma'no — munosabat, tanlov va mas'uliyat orqali yuzaga chiqadi.\n\nPsixolog bilan ishlash insonning ichki bo'shliqlarini aniqlashga yordam beradi. Ko'pincha tushkunlik mazmunsizlik hissidan kelib chiqadi.\n\nMuntazam suhbatlar orqali shaxs o'z qo'rquvlari va ichki ziddiyatlarini anglay boshlaydi.\n\nNatijada inson o'z hayotini boshqaruvchi subyektga aylanadi, qurbon emas.",
+                    ijtimoiy: "Inson yolg'iz holda hayot mazmunini to'liq anglay olmaydi. Jamiyat bilan o'zaro munosabatlar bu jarayonni boyitadi.\n\nOila, do'stlar va jamoa insonning mas'uliyat hissini kuchaytiradi. Boshqalarga foydali bo'lish hayotga mazmun bag'ishlaydi.\n\nIjtimoiy rollar orqali inson o'zini turli qirralardan kashf etadi.\n\nJamiyatdagi faol ishtirok befarqlikni kamaytiradi va ongli yashashga undaydi.\n\nNatijada shaxs jamiyat va o'z hayoti o'rtasida muvozanat topadi.",
+                    trening: "Amaliy mashg'ulot sifatida hayotiy xulosalarni yozib borish tavsiya etiladi.\n\nHar hafta siz uchun eng muhim bo'lgan voqeani tanlab, undan chiqargan saboqni yozing.\n\nBu mashq fikrlashni chuqurlashtiradi va hayotga nisbatan ongli munosabatni shakllantiradi.\n\nVaqt o'tib siz o'z qadriyatlaringiz qanday o'zgarayotganini sezishni boshlaysiz.\n\nBu esa hayot mazmunini ongli ravishda boshqarishga yordam beradi."
                 },
                 videos: [
-                    { title: "Hayot mazmuni: Boshlang'ich qadamlar", duration: "12:45" },
-                    { title: "Maqsadni aniqlash texnikasi", duration: "18:30" },
-                    { title: "O'z ichiga sig'diradigan hayot", duration: "15:20" },
-                    { title: "Qiymatlar va maqsadlar", duration: "14:00" },
-                    { title: "Kichik qadamlar, katta o'zgarishlar", duration: "11:50" }
+                    { title: "Qush uyasida ko'rganini qiladi", url: "https://www.youtube.com/embed/nxoOzO49AfE" },
+                    { title: "Qaytar dunyo", url: "https://www.youtube.com/embed/lkeC7UpT998" },
+                    { title: "Otalarga iltijo", url: "https://www.youtube.com/embed/kuDk2RN8Xc8" },
+                    { title: "Mol dunyo talashganlar", url: "https://www.youtube.com/embed/fYUC54Ae9t8" },
+                    { title: "Meni qutqaring dada", url: "https://www.youtube.com/embed/WtfAQBwThiE" },
+                    { title: "Hayot haqida", url: "https://www.youtube.com/embed/9Pv0yiuOsqY" },
+                    { title: "Hayotiy saboqlar", url: "https://www.youtube.com/embed/In2fBUuK93c" },
+                    { title: "Ishonch buyuk kuch", url: "https://www.youtube.com/embed/w-1-lgfcHsg" },
+                    { title: "Haqiqiy erkak qanday bo'ladi", url: "https://www.youtube.com/embed/BqTp4ukO9uM" },
+                    { title: "Bitta gishtning jazosi", url: "https://www.youtube.com/embed/o9llCswx6g4" }
                 ]
             },
             {
@@ -416,39 +634,58 @@
                 title: "Motivatsiya – Muvaffaqiyat Garovidir",
                 emoji: "🚀",
                 description: "Motivatsiya va muvaffaqiyat orasidagi munosabat",
-                fullDescription: "Motivatsiya bizni harakat qilishga undaydigan kuch. Muvaffaqiyat esa motivatsiya va mehnat natijasi. Bu bobda biz motivatsiyaning ustunligi va uni yo'l-yo'lagida ushlab turish usullarini o'rganamiz.",
+                fullDescription: "Motivatsiya — bu insonni harakatga undovchi ichki kuchdir. U yo'q joyda intizom, iroda va maqsad ham sustlashadi. Ushbu bo'lim motivatsiyani topish, uni yo'qotmaslik va hayot davomida faol bo'lib qolish haqida.\n\n\"Harakat qilmagan odam hech qachon g'alaba qozonmaydi.\" — Napoleon Hill",
+                images: [
+                    "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1499728603263-13726abce5fd?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Motivatsiyani ushlab turish uchun:\n• Har kuni kichik maqsadlarni belgilash\n• Muvaffaqiyatlarni taqvimga belgilash\n• Ilhomlanish manbalari qidirish",
-                    psixolog: "Psixolog sizning motivatsiya saboqlaringizni tahlil qilib, ularni oshirishga yordam beradi.",
-                    ijtimoiy: "Jamoada ishlash motivatsiyani yanada oshiradi va muvaffaqiyatga erishishni osonlashtiradi.",
-                    trening: "Nafi motivatsiyali odam topib, uning hikayasini qabul qiling va o'z yo'lingizda qa'y qilib davom eting"
+                    metodika: "Motivatsiya tizimli yondashuvni talab qiladi. Uni faqat hissiyotga bog'lab qo'yish uzoq muddatli natija bermaydi.\n\nBirinchi qadam — aniq va o'lchanadigan maqsad qo'yish. Noaniq maqsad motivatsiyani tez so'ndiradi.\n\nIkkinchi qadam — kichik bosqichlarga bo'lish. Har bir kichik yutuq ichki rag'batni oshiradi.\n\nUchinchi qadam — kundalik tartib va intizomni shakllantirish.\n\nTo'rtinchi qadam — muvaffaqiyatsizlikni tajriba sifatida qabul qilish.",
+                    psixolog: "Psixologik jihatdan motivatsiya ichki va tashqi omillardan iborat.\n\nIchki motivatsiya — insonning shaxsiy maqsadlari va ehtiyojlari bilan bog'liq.\n\nNapoleon Hill ta'kidlaganidek, qat'iy niyat va ishonch motivatsiyani mustahkamlaydi.\n\nPsixolog bilan ishlash shaxsiy to'siqlarni aniqlashga yordam beradi.\n\nNatijada inson motivatsiyani tashqi holatlarga bog'lamay yashaydi.",
+                    ijtimoiy: "Ijtimoiy muhit motivatsiyaga bevosita ta'sir ko'rsatadi.\n\nQo'llab-quvvatlovchi oila va do'stlar insonni oldinga undaydi.\n\nJamoada ishlash mas'uliyat hissini oshiradi.\n\nIjobiy muhit insonning o'ziga bo'lgan ishonchini kuchaytiradi.\n\nBu esa uzoq muddatli muvaffaqiyatga olib keladi.",
+                    trening: "Har kuni ertalab kunlik maqsadni yozish mashqi tavsiya etiladi.\n\nKun oxirida bajarilgan ishlarni tahlil qiling.\n\nNima muvaffaqiyatli bo'ldi va nimani yaxshilash mumkinligini yozing.\n\nBu mashq ongli harakatni shakllantiradi.\n\nNatijada motivatsiya ichki odatga aylanadi."
                 },
                 videos: [
-                    { title: "Motivatsiya: Ichki va tashqi omillar", duration: "16:20" },
-                    { title: "Muvaffaqiyat qanday yoziladi?", duration: "19:45" },
-                    { title: "Motivatsiyani kayta-qo'llash", duration: "13:30" },
-                    { title: "Maqsadga erishish yo'li", duration: "17:15" },
-                    { title: "Ota-onalardan o'rganish", duration: "12:00" }
+                    { title: "INSON HAYOTIDA MAQSADNING O'RNI", url: "https://www.youtube.com/embed/OI8UukZOhGo" },
+                    { title: "Motivatsion film tahlili Eddi Burgut", url: "https://www.youtube.com/embed/dQv1BwJFGEc" },
+                    { title: "Hayotingizni tartiblang", url: "https://www.youtube.com/embed/wstYGAUV2O0" },
+                    { title: "Diqqatni oshiramiz", url: "https://www.youtube.com/embed/TsEhvdDadgA" },
+                    { title: "HARAKAT MUVAFFAQIYAT GAROVI", url: "https://www.youtube.com/embed/Yump-GD1DGQ" },
+                    { title: "Tanlov o'z qo'lingda", url: "https://www.youtube.com/embed/lvtTwB7578w" },
+                    { title: "MUVAFFAQIYATGA ERISHISH SIRLARI", url: "https://www.youtube.com/embed/1MlPVZ2LLC8" },
+                    { title: "MUVAFFAQIYAT MOTIVASIYASIGA OILANING TA'SIRI", url: "https://www.youtube.com/embed/BnF7JjRvP5U" },
+                    { title: "KUCHLI INSON IMKONIYATLARI", url: "https://www.youtube.com/embed/W_snKoyFjwM" }
                 ]
             },
             {
                 id: 3,
                 title: "Irodaviy Kuch",
                 emoji: "💪",
-                description: "Qatiy irada va uning kuchida",
-                fullDescription: "Irodaviy kuch - bu turli qiyinchiliklardan ortilish va o'z maqsadiga yetishning asosiy salohiyati. Kuchli iroda sizni engil ba'zilashdan saqlab turadi.",
+                description: "Qat'iy irada va uning kuchida",
+                fullDescription: "Irodaviy kuch - bu turli qiyinchiliklardan o'tish va o'z maqsadiga yetishning asosiy salohiyati. Kuchli iroda sizni engil taslimashdan saqlab turadi.",
+                images: [
+                    "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1434682881908-b43d0467b798?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Irodaviy kuchni rivojlantirish usullari:\n• Kunlik mashqlar\n• Qiyin vazifalarni qabul qilish\n• Intizamli hayot tartibi",
-                    psixolog: "Psixolog sizni o'z iradangizni kuchaytirish uchun xususiy strategiyalar o'rgatadi.",
-                    ijtimoiy: "Jamiyat sizning irodangizni tavzih etadi va yanada kuchayishiga sabab bo'ladi.",
-                    trening: "Kuniga 10 daqiqa o'zing uchun qiyin bo'lgan narsani qilish masalasini belgilang"
+                    metodika: "Iroda bu tug'ma emas, rivojlantiriladigan sifatdir.\n\nBirinchi qadam — o'zini majbur qilishni o'rganish.\n\nKichik qiyinchiliklardan boshlash irodani mustahkamlaydi.\n\nKunlik tartib va intizom irodaning asosi hisoblanadi.\n\nVaqt o'tib qiyinchiliklar odatiy holga aylanadi.",
+                    psixolog: "Psixologiya iroda va mas'uliyatni chambarchas bog'laydi.\n\nInson qaror qabul qilganda o'z ichki kuchiga tayanganida iroda rivojlanadi.\n\nPsixolog bilan ishlash ichki qarshiliklarni aniqlashga yordam beradi.\n\nQo'rquvlar bartaraf etilganda iroda kuchayadi.\n\nNatijada inson o'zini nazorat qila boshlaydi.",
+                    ijtimoiy: "Jamiyat insonning iroda sifatini sinovdan o'tkazadi.\n\nMas'uliyatli vazifalar irodaning mustahkamlanishiga xizmat qiladi.\n\nAtrofdagilar bilan raqobat emas, o'z ustida ishlash muhim.\n\nIjtimoiy majburiyatlar intizomni oshiradi.\n\nBu shaxsiy o'sishga olib keladi.",
+                    trening: "Har kuni o'zingiz uchun qiyin bo'lgan bitta ishni tanlang.\n\nUni kechiktirmasdan bajaring.\n\nBu mashq ichki qarshilikni kamaytiradi.\n\nVaqt o'tib iroda mustahkamlanadi.\n\nNatija sifatida o'ziga ishonch ortadi."
                 },
                 videos: [
-                    { title: "Iroda: Bu nima va undan foydalanish", duration: "14:00" },
-                    { title: "Qiyinchiliklarga qarshi kurash", duration: "16:50" },
-                    { title: "Intizam - iradaning asosi", duration: "15:30" },
-                    { title: "Negativizm bilan kurash", duration: "13:20" },
-                    { title: "Iradam kuchli ekanligini qanday bilaman?", duration: "11:45" }
+                    { title: "QAT'IYATLILIK", url: "https://www.youtube.com/embed/qDYnpMQ5Ef8" },
+                    { title: "Maqsadga intiluvchanlik", url: "https://www.youtube.com/embed/PZcjmY2kX1Y" },
+                    { title: "MUSTAQILLIK", url: "https://www.youtube.com/embed/YoYk340T2Xg" },
+                    { title: "Gumon", url: "https://www.youtube.com/embed/pHBfScqoL9o" }
                 ]
             },
             {
@@ -457,98 +694,119 @@
                 emoji: "⚖️",
                 description: "Huquq va qonun asoslari",
                 fullDescription: "Yuridik bilim har bir fuqarani o'z huquqlarini himoya qilishda va mas'uliyatlarini tushunishda yordam beradi. Bu bo'limda asosiy yuridik tushunchalar beriladi.",
+                images: [
+                    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1551135049-8a33b5883817?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1521791055366-0d553872125f?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Yuridik talimning asoslari:\n• Konstitutsiya va qonunlarni o'rganish\n• Shaxsiy huquqlarni tushunish\n• Mas'uliyat va majburiyatlar",
-                    psixolog: "Yuridik maslahatchi sizning huquqlarini himoya qilish va tushunishda yordam beradi.",
-                    ijtimoiy: "Jamoada to'g'ri huquqiy farzandlik bilimlarni bo'lishish muhim ahamiyatga ega.",
-                    trening: "O'z hudud va shaxar qonunlarini chuqur o'rganing va ularni hayotda tatbiq qiling"
+                    metodika: "Yuridik bilimlarni egallash fuqarolik ongining muhim qismidir. Har bir inson o'z huquq va majburiyatlarini bilishi jamiyatdagi barqarorlikka xizmat qiladi.\n\nBirinchi bosqich — asosiy qonunlarni tushunish. Konstitutsiya va asosiy kodekslar fuqaroning kundalik hayotiga bevosita ta'sir qiladi.\n\nIkkinchi bosqich — huquqiy vaziyatlarni tahlil qilishni o'rganish. Har bir holatda qonun qanday ishlashini tushunish muhim.\n\nUchinchi bosqich — hujjatlar bilan ishlash ko'nikmasini shakllantirish.\n\nTo'rtinchi bosqich — huquqiy mas'uliyatni ongli qabul qilish.",
+                    psixolog: "Huquqiy muammolar ko'pincha insonda stress va xavotir uyg'otadi.\n\nPsixologik jihatdan huquqiy bilim insonda ishonch hissini kuchaytiradi.\n\nO'z huquqlarini bilgan shaxs o'zini himoyasiz his qilmaydi.\n\nYuridik maslahatchi bilan ishlash qaror qabul qilishdagi bosimni kamaytiradi.\n\nBu esa ruhiy barqarorlikka olib keladi.",
+                    ijtimoiy: "Jamiyatda huquqiy savodxonlik umumiy madaniyat darajasini oshiradi.\n\nOdamlar o'z huquqlarini bilgan sari nizolar kamayadi.\n\nHuquqiy bilim almashish ijtimoiy mas'uliyatni kuchaytiradi.\n\nAdolatga ishonch jamiyatni birlashtiradi.\n\nBu sog'lom fuqarolik muhitini shakllantiradi.",
+                    trening: "Har oy bitta huquqiy mavzuni tanlab o'rganing.\n\nReal hayotiy misollarni tahlil qiling.\n\nQonun matnini amaliy vaziyat bilan bog'lashga harakat qiling.\n\nSavollar tug'ilganda mutaxassisga murojaat qiling.\n\nBu mashq huquqiy fikrlashni rivojlantiradi."
                 },
-                videos: [
-                    { title: "Qonun asoslari", duration: "18:00" },
-                    { title: "Shaxsiy huquqlar", duration: "16:30" },
-                    { title: "Konstitusiyani bilamizmi?", duration: "14:20" },
-                    { title: "Mehnat qonunlari", duration: "17:45" },
-                    { title: "Fozillik va masuliyatlar", duration: "15:10" }
-                ]
+                videos: []
             },
             {
                 id: 5,
                 title: "Emotsional Barqarorlik",
                 emoji: "🧘",
-                description: "Emotsiyalarni boshqarish va barqarori",
-                fullDescription: "Emotsional barqarorlik - bu hayotning turli vaziyatlarida xotirjam va muvozanatli bo'lishning qobiliyati. Bu bo'limda emotsiyalarni tushunish va ularni to'g'ri boshqarish o'rgatiladi.",
+                description: "Emotsiyalarni boshqarish va barqarorlik",
+                fullDescription: "Emotsional barqarorlik — bu insonning ichki tinchligi va ruhiy muvozanatidir. Bu bo'lim stress, qo'rquv va ichki ziddiyatlarni anglashga yordam beradi.\n\n\"Emotsiyalarni boshqara olgan odam hayotni boshqara oladi.\" — Daniel Goleman",
+                images: [
+                    "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1494256997604-768d1f608cac?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Emotsional barqarorlikni saqlash:\n• Meditatsiya va relaxatsiya\n• Sog'lom turmush tartibi\n• Stressni boshqarish",
-                    psixolog: "Psixolog sizni difficul emotsiyalarni hal qilishda va xotirjamlikka erishishda yordam beradi.",
-                    ijtimoiy: "Boshqalar bilan sog'lom munosabatlar emotsional barqarorligimizning asosi bo'ladi.",
-                    trening: "Har kuni 5 minutlik meditatsiya qiling va o'z emotsiyalaringizni kuzating"
+                    metodika: "Emotsional barqarorlik ongli mashqlar orqali rivojlanadi.\n\nBirinchi qadam — o'z emotsiyalarini tan olish.\n\nIkkinchi qadam — hissiyotlarni bostirmasdan, sog'lom ifodalash.\n\nUchinchi qadam — stress manbalarini aniqlash.\n\nTo'rtinchi qadam — dam olish va tiklanish rejimini yaratish.",
+                    psixolog: "Emotsiyalarni tushunish psixologik yetuklik belgisi hisoblanadi.\n\nDaniel Goleman ta'kidlaganidek, emotsional intellekt hayot sifatini belgilaydi.\n\nPsixolog bilan ishlash ichki ziddiyatlarni aniqlashga yordam beradi.\n\nSalbiy emotsiyalarni anglash ularni boshqarish imkonini beradi.\n\nBu ruhiy muvozanatni mustahkamlaydi.",
+                    ijtimoiy: "Sog'lom ijtimoiy munosabatlar emotsional barqarorlikni qo'llab-quvvatlaydi.\n\nOchiq muloqot stressni kamaytiradi.\n\nAtrofdagilar bilan tushunish va hamdardlik muhim.\n\nIjtimoiy yolg'izlik hissiy beqarorlikni kuchaytiradi.\n\nJamiyat bilan aloqadorlik ruhiy tayanch vazifasini bajaradi.",
+                    trening: "Har kuni qisqa meditatsiya mashqini bajaring.\n\nNafasingizga e'tibor qarating.\n\nKun davomida paydo bo'lgan emotsiyalarni yozib boring.\n\nUlarning sababini tahlil qiling.\n\nBu mashq hissiy ongni oshiradi."
                 },
                 videos: [
-                    { title: "Emotsiyalarni tanish va tushunish", duration: "15:30" },
-                    { title: "Stress bilan kurash usullari", duration: "17:00" },
-                    { title: "Meditatsiya uchun yo'l-yo'l", duration: "12:45" },
-                    { title: "Musbat pempe niyatlar", duration: "14:15" },
-                    { title: "O'z-o'ziga xos kalimalar", duration: "13:50" }
+                    { title: "Beshinchi devor", url: "https://www.youtube.com/embed/mMcE6RmqwJo" },
+                    { title: "ANGLANMAGAN HISSIYETLAR", url: "https://www.youtube.com/embed/AQdKbxMCCRs" }
                 ]
             },
             {
                 id: 6,
                 title: "Diniy Ong",
                 emoji: "🕌",
-                description: "Diniy tushunchalar va o'z uyg'unliginiz",
-                fullDescription: "Diniy ong - bu o'z Xudo, ta'limot va ruhiy qadriyatlarimizning tushunchasining rivojlanishi. Bu bo'limda diniy asoslar va ularning hayotga ta'siri muhokama qilinadi.",
+                description: "Diniy tushunchalar va ma'naviy rivojlanish",
+                fullDescription: "Diniy ong - bu ma'naviy qadriyatlar va ruhiy kamolotning rivojlanishi. Bu bo'limda diniy asoslar va ularning hayotga ta'siri muhokama qilinadi.",
+                images: [
+                    // "https://images.unsplash.com/photo-1591604021695-0c69b7c05981?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=800&auto=format&fit=crop&q=80",
+                    // "https://images.unsplash.com/photo-1564769610-c2cfc0cd87b3?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?w=800&auto=format&fit=crop&q=80",
+                    // "https://images.unsplash.com/photo-1604004555489-723a93d6ce74?w=800&auto=format&fit=crop&q=80",
+                    // "https://images.unsplash.com/photo-1585241645927-c7a8e5840c42?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Diniy tushunchaslari rivojlantirish:\n• Dini manbalari o'rganish\n• Tafakkur va meditatsiya\n• Masuliyatli xizmat",
-                    psixolog: "Allohga yaqinligi o'ng-chap ruhiy salomatligi va barqarorligiga olib keladi.",
-                    ijtimoiy: "Diniy jamiyat bu-sotsial va ruhiy qo'llab-quvvatlashning muhim manbai.",
-                    trening: "Ruhiy rahbarmisiz topa, o'z yo'lingizni aniqlab yozing"
+                    metodika: "Diniy ong izchil o'rganish va tafakkur orqali rivojlanadi.\n\nBirinchi qadam — diniy manbalarni tushunib o'qish.\n\nIkkinchi qadam — o'rganilgan bilimlarni hayot bilan bog'lash.\n\nUchinchi qadam — niyat va amal uyg'unligini ta'minlash.\n\nTo'rtinchi qadam — ma'naviy mas'uliyatni anglash.",
+                    psixolog: "Diniy ong ruhiy barqarorlikni mustahkamlaydi.\n\nE'tiqod insonda umid va sabr hissini kuchaytiradi.\n\nRuhiy qadriyatlar stressni yengishda tayanch bo'ladi.\n\nPsixologik jihatdan ibodat ichki tinchlik beradi.\n\nBu insonni ichki bo'shliqlardan himoya qiladi.",
+                    ijtimoiy: "Diniy jamiyat ijtimoiy birdamlikni kuchaytiradi.\n\nHamjihatlik va o'zaro yordam qadriyatlari shakllanadi.\n\nJamiyatdagi axloqiy me'yorlar mustahkamlanadi.\n\nDiniy muhit insonni yomon odatlardan tiyadi.\n\nBu sog'lom jamiyat asosidir.",
+                    trening: "Har hafta diniy mavzuda mulohaza yozing.\n\nO'qigan oyat yoki hadis ustida tafakkur qiling.\n\nUni kundalik hayot bilan bog'lang.\n\nO'z xulq-atvoringizni baholang.\n\nBu mashq ruhiy ongni rivojlantiradi."
                 },
                 videos: [
-                    { title: "Dini ta'limoti asoslari", duration: "19:20" },
-                    { title: "Ibodat va ruhiyligi", duration: "16:45" },
-                    { title: "Qur'on va hayot", duration: "18:00" },
-                    { title: "Diniy xizmat", duration: "15:30" },
-                    { title: "Imanoviy rivojlanish", duration: "14:20" }
+                    { title: "Shum niyatlar girdobi", url: "https://www.youtube.com/embed/F31TJ7npwmc" },
+                    { title: "Shaytonning ishi", url: "https://www.youtube.com/embed/I-y-G1khwV0" }
                 ]
             },
             {
                 id: 7,
-                title: "Mutaxassisga Ko'mak",
+                title: "Mutaxassisga Murojaat",
                 emoji: "👨‍⚕️",
-                description: "Mutaxassisdan malaka ko'mak olish",
-                fullDescription: "Mutaxassisga murojaat qilish shaxsiy o'sish va hayotiy muammolarni hal qilishning muhim bosqichi. Bu bo'limda mutaxassislar bilan ishlash jarayoni tushuntriladi.",
+                description: "Professional yordam va maslahat",
+                fullDescription: "Mutaxassisga murojaat qilish shaxsiy o'sish va hayotiy muammolarni hal qilishning muhim bosqichi. Bu bo'limda mutaxassislar bilan ishlash jarayoni tushuntiriladi.",
+                images: [
+                    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Mutaxassis tanlab qabul qilish:\n• To'g'ri mutaxassisni tanlash\n• Sessiyalarga tayyorlanish\n• Tavsiyalarni bajarish",
-                    psixolog: "Psixolog, shoyx, advokat va boshqa mutaxassislarning ko'magi sizni yangi qarasdan ko'rish imkonini beradi.",
-                    ijtimoiy: "Mutaxassisga murojaat qilish shaxsiy o'sishning yangi era boshlanishi ko'pincha.",
-                    trening: "Qaysi mutaxassisning ko'magiga ehtiyojingiz bor, o'ylang va izlab topishni boshlang"
+                    metodika: "Mutaxassisga murojaat qilish ongli qarorni talab qiladi.\n\nBirinchi qadam — muammoni aniq belgilash.\n\nIkkinchi qadam — mos mutaxassisni tanlash.\n\nUchinchi qadam — uchrashuvga tayyorlanish.\n\nTo'rtinchi qadam — tavsiyalarni izchil bajarish.",
+                    psixolog: "Mutaxassis bilan ishlash ichki qarshiliklarni kamaytiradi.\n\nPsixolog yoki maslahatchi muammoni boshqacha ko'rishga yordam beradi.\n\nTashqi qarash yangi yechimlarni ochadi.\n\nIshonchli munosabat natijani tezlashtiradi.\n\nBu shaxsiy o'sishga xizmat qiladi.",
+                    ijtimoiy: "Mutaxassisga murojaat qilish jamiyatda ongli yondashuv belgisi hisoblanadi.\n\nBu zaiflik emas, mas'uliyatdir.\n\nIjtimoiy stereotiplarni yengishga yordam beradi.\n\nBoshqalarga ham ijobiy namuna bo'ladi.\n\nJamiyatda sog'lom qarash shakllanadi.",
+                    trening: "Muammo ro'yxatini yozib chiqing.\n\nHar bir muammo bo'yicha savollar tayyorlang.\n\nMutaxassis tavsiyalarini yozib boring.\n\nUlarni amalda sinab ko'ring.\n\nBu jarayon samaradorlikni oshiradi."
                 },
-                videos: [
-                    { title: "Psixolog bilan ishlash", duration: "13:40" },
-                    { title: "Konsultatsiya olish qanday?", duration: "12:30" },
-                    { title: "Mutaxassis tanlash", duration: "14:50" },
-                    { title: "Shafqatli munosabatlar", duration: "15:20" },
-                    { title: "Kurs va treninglar", duration: "16:00" }
-                ]
+                videos: []
             },
             {
                 id: 8,
                 title: "Biznes va Tadbirkorlik",
                 emoji: "💼",
-                description: "Tadbirkorlik yo'l-yo'lari va maqsadlari",
-                fullDescription: "Tadbirkorlik - bu bozorda o'z fikrlaringizni joriy etish va o'z taqdirlarini yaratish imkoniyati. Bu bo'limda biznes asoslari va tadbirkorlik ko'nikmalarini o'rganamiz.",
+                description: "Tadbirkorlik yo'li va biznes asoslari",
+                fullDescription: "Tadbirkorlik - bu o'z g'oyalaringizni amalga oshirish va mustaqil faoliyat yuritish imkoniyati. Bu bo'limda biznes asoslari va tadbirkorlik ko'nikmalarini o'rganamiz.",
+                images: [
+                    "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80"
+                ],
                 content: {
-                    metodika: "Biznesni boshlash uchun:\n• Biznes reja tuzish\n• Bozar tadqiqi qilish\n• Moliyaviy rejani yaratish",
-                    psixolog: "Boshlanuvchi tadbirkorlar tez-tez shubhalardan aziyat chekadi, psixolog bu yo'lda yordam beradi.",
-                    ijtimoiy: "Tadbirkorlar jamiyatga amaliy hissa qo'shadi va ishlashni yaratadi.",
-                    trening: "Biznes ideya yazib, uni tahlil qiling va boshlash qadamlarini aniqlang"
+                    metodika: "Tadbirkorlik puxta rejalashtirishdan boshlanadi.\n\nBirinchi qadam — g'oyani aniqlash.\n\nIkkinchi qadam — bozorni tahlil qilish.\n\nUchinchi qadam — moliyaviy reja tuzish.\n\nTo'rtinchi qadam — xavflarni baholash.",
+                    psixolog: "Biznes psixologiyasi tavakkalchilik bilan bog'liq.\n\nQo'rquv va shubhalarni boshqarish muhim.\n\nPsixolog tadbirkorga stress bilan kurashishda yordam beradi.\n\nIshonch va sabr muvaffaqiyat kalitidir.\n\nBu ruhiy bardoshlikni oshiradi.",
+                    ijtimoiy: "Tadbirkorlar jamiyat rivojiga hissa qo'shadi.\n\nYangi ish o'rinlari yaratiladi.\n\nIjtimoiy mas'uliyat kuchayadi.\n\nMahalliy iqtisod rivojlanadi.\n\nBu jamiyat farovonligiga xizmat qiladi.",
+                    trening: "Biznes g'oyangizni yozib chiqing.\n\nUni real muammo bilan bog'lang.\n\nBozor ehtiyojini baholang.\n\nKichik qadam bilan boshlang.\n\nBu amaliy tajriba beradi."
                 },
                 videos: [
-                    { title: "Biznes ideya qanday topish kerak?", duration: "17:30" },
-                    { title: "Biznes rejasini tuzish", duration: "19:00" },
-                    { title: "Moliyaviy boshlanish", duration: "16:20" },
-                    { title: "Sotish va marketing", duration: "18:45" },
-                    { title: "Muvaffaqiyatli tadbirkorlar", duration: "15:50" }
+                    { title: "Biznes g'oyani amalga oshirish sirlari", url: "https://www.youtube.com/embed/C4uMArHiSrA" },
+                    { title: "Kasbingni ardoqla", url: "https://www.youtube.com/embed/noGVhRHdwEk" },
+                    { title: "Senda bugun bor imkon", url: "https://www.youtube.com/embed/DHN3Nm9OsOY" },
+                    { title: "Qumdan katta qasr yasar bolakay", url: "https://www.youtube.com/embed/e4FLmNMndcM" }
                 ]
             }
         ];
@@ -557,6 +815,7 @@
         const categoriesView = document.getElementById('categoriesView');
         const detailView = document.getElementById('detailView');
         const backBtn = document.getElementById('backBtn');
+        const testBtn = document.getElementById('testBtn');
 
         // Render categories
         function renderCategories() {
@@ -576,45 +835,64 @@
             const category = categories.find(c => c.id === categoryId);
             if (!category) return;
 
-            const videoGalleryHTML = category.videos.map(video => `
-                <div class="video-card" role="button" tabindex="0">
-                    <div class="video-thumbnail">
-                        <div class="play-icon">▶</div>
+            const videoGalleryHTML = category.videos && category.videos.length > 0
+                ? category.videos.map(video => `
+                    <div class="video-card" role="button" tabindex="0">
+                        <div class="video-wrapper">
+                            <iframe
+                                src="${video.url}"
+                                title="${video.title}"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}</div>
+                        </div>
                     </div>
-                    <div class="video-info">
-                        <div class="video-title">${video.title}</div>
-                        <div class="video-duration">${video.duration}</div>
+                `).join('')
+                : '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">Hozircha video materiallar mavjud emas</p>';
+
+            const imagesHTML = category.images && category.images.length > 0
+                ? `
+                    <div class="image-gallery">
+                    ${category.images.map((img, index) => `
+                        <div class="image-item" onclick="openLightbox(${JSON.stringify(category.images)}, ${index})">
+                            <img src="${img}" loading="lazy" alt="${category.title} - изображение ${index + 1}" onerror="this.parentElement.style.display='none'">
+                            <div class="image-overlay">${index + 1}/${category.images.length}</div>
+                        </div>
+                    `).join('')}
                     </div>
-                </div>
-            `).join('');
+                `
+                : '';
 
             detailView.innerHTML = `
-                <div class="detail-header">
+               <div class="detail-header">
                     <h1>${category.title}</h1>
                     <p class="detail-description">${category.fullDescription}</p>
                 </div>
 
+                ${imagesHTML}
+
                 <div class="content-section">
                     <div class="section-title">📋 Metodika</div>
-                    <div class="section-content">${category.content.metodika.split('\n').map(line => {
-                if (line.startsWith('•')) return `<li>${line.substring(1).trim()}</li>`;
-                return line;
-            }).join('<ul>').replace(/\n/g, '</ul>')}</div>
+                    <div class="section-content">${category.content.metodika.replace(/\n/g, '<br>')}</div>
                 </div>
 
                 <div class="content-section">
                     <div class="section-title">👨‍⚕️ Psixolog Maslahat</div>
-                    <div class="section-content">${category.content.psixolog}</div>
+                    <div class="section-content">${category.content.psixolog.replace(/\n/g, '<br>')}</div>
                 </div>
 
                 <div class="content-section">
                     <div class="section-title">👥 Ijtimoiy Rol</div>
-                    <div class="section-content">${category.content.ijtimoiy}</div>
+                    <div class="section-content">${category.content.ijtimoiy.replace(/\n/g, '<br>')}</div>
                 </div>
 
                 <div class="content-section">
                     <div class="section-title">🎓 Trening Dasturi</div>
-                    <div class="section-content">${category.content.trening}</div>
+                    <div class="section-content">${category.content.trening.replace(/\n/g, '<br>')}</div>
                 </div>
 
                 <div class="content-section">
@@ -626,6 +904,7 @@
             categoriesView.classList.add('hidden');
             detailView.classList.add('active');
             backBtn.style.display = 'flex';
+            testBtn.style.display = "none"
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -634,6 +913,7 @@
             categoriesView.classList.remove('hidden');
             detailView.classList.remove('active');
             backBtn.style.display = 'none';
+            testBtn.style.display = 'flex'
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -642,7 +922,7 @@
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && detailView.classList.contains('active')) {
+            if (e.key === 'Escape' && detailView.classList.contains('active') && !document.getElementById('lightbox').classList.contains('active')) {
                 goBack();
             }
         });
