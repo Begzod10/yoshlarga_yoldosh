@@ -1,17 +1,19 @@
 import os
 from datetime import datetime, timedelta, timezone
+from dotenv import load_dotenv
 
 SECRET_KEY = os.urandom(32)
 # Grabs the folder where the script runs.
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv()
 
 DEBUG = True
 
-DB_USER = os.getenv('DB_USER', 'postgres')
-DB_PASSWORD = os.getenv('DB_PASSWORD', '123')
-DB_HOST = os.getenv('DB_HOST', 'localhost:5432')
-# DB_HOST = os.getenv('DB_HOST', '192.168.68.103:5432')
-DB_NAME = os.getenv('DB_NAME', 'yoshlarga_yoldosh')
+DB_USER = os.getenv('DB_USER', os.getenv('DB_USER'))
+DB_PASSWORD = os.getenv('DB_PASSWORD', os.getenv('DB_PASSWORD'))
+DB_HOST = os.getenv('DB_HOST', os.getenv('DB_HOST'))
+
+DB_NAME = os.getenv('DB_NAME', os.getenv('DB_NAME'))
 database_path = 'postgresql://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
 SQLALCHEMY_DATABASE_URI = database_path
 SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -24,4 +26,3 @@ FLASK_ENV = "development"
 FLASK_DEBUG = 1
 TEMPLATES_AUTO_RELOAD = True
 SEND_FILE_MAX_AGE_DEFAULT = 0
-
