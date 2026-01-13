@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F5F1ED">
+    <title>Uzbek Content Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #F5F1ED;
+            --bg-secondary: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --accent-gold: #D4A574;
+            --accent-blue: #B8D9E8;
+            --accent-warm: #E8C4A0;
+            --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--bg-secondary);
+            padding: 1.5rem 1rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            letter-spacing: -0.5px;
+        }
+
+        .back-button {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .back-button:active {
+            background-color: var(--bg-primary);
+            border-radius: var(--border-radius);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @media (min-width: 768px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2.5rem;
+            }
+        }
+
+        .category-card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            touch-action: manipulation;
+        }
+
+        .category-card:active {
+            transform: scale(0.98);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @media (hover: hover) {
+            .category-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-hover);
+            }
+        }
+
+        .category-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, var(--accent-warm) 0%, var(--accent-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 3rem;
+            opacity: 0.8;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .category-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: auto;
+        }
+
+        /* Category Detail View */
+        .detail-view {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        .detail-header {
+            margin-bottom: 2rem;
+        }
+
+        .detail-header h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .detail-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .section-content ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .section-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .section-content li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* Video Gallery */
+        .video-gallery {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .video-gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .video-gallery {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .video-card {
+            background-color: var(--bg-primary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            min-height: 220px;
+            touch-action: manipulation;
+        }
+
+        .video-card:active {
+            transform: scale(0.98);
+        }
+
+        @media (hover: hover) {
+            .video-card:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-hover);
+            }
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #E8E8E8 0%, #D0D0D0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-size: 2.5rem;
+        }
+
+        .play-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .video-duration {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 480px) {
+            .detail-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+            .category-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* Touch Targets */
+        button,
+        .category-card,
+        .video-card {
+            min-height: 44px;
+            min-width: 44px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">📚 Bilim</div>
+            <button class="back-button" id="backBtn" aria-label="Orqaga qaytish">←</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Categories Grid View -->
+        <div id="categoriesView" class="categories-grid">
+            <!-- Categories will be rendered here by JavaScript -->
+        </div>
+
+        <!-- Category Detail View -->
+        <div id="detailView" class="detail-view">
+            <!-- Detail content will be rendered here by JavaScript -->
+        </div>
+    </main>
+
+    <script>
+        // Data
+        const categories = [
+            {
+                id: 1,
+                title: "Hayot Mazmuni",
+                emoji: "🌟",
+                description: "Hayot ma'nosi va maqsadini tushunish",
+                fullDescription: "Hayot mazmuni - bu insan faoliyatining eng asosiy jihati. Bu bo'limda biz hayotning haqiqiy ma'nosi, maqsadi va bugungi dunyoda o'z o'rnimizni topish yo'llari haqida gaplashamiz.",
+                content: {
+                    metodika: "Hayot mazmunini tushunish uchun ba'zi metodologik yondashuvlar:\n• Shaxsiy qiymatlarni aniqlash\n• Maqsadlarni belgilash va amalga oshirish\n• O'z ichiga sig'diradigan hayot falsafasini yaratish",
+                    psixolog: "Psixolog bilan ishlash sizga hayot maqsadlarini aniqlashtirish va ichki tinchlikka erishishda yordam beradi.",
+                    ijtimoiy: "Ijtimoiy rollarimiz bizning hayot mazmunimizni tashkil etadi. Oila, ish va do'stlar bizni o'zimizni bilib tanish-tarafini turli tomonchalarda hal qilishga olib keladi.",
+                    trening: "Sayohatlar qiling va yangi tajribalar bilan tanishing, yangi narsalarni o'rganing"
+                },
+                videos: [
+                    { title: "Hayot mazmuni: Boshlang'ich qadamlar", duration: "12:45" },
+                    { title: "Maqsadni aniqlash texnikasi", duration: "18:30" },
+                    { title: "O'z ichiga sig'diradigan hayot", duration: "15:20" },
+                    { title: "Qiymatlar va maqsadlar", duration: "14:00" },
+                    { title: "Kichik qadamlar, katta o'zgarishlar", duration: "11:50" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Motivatsiya – Muvaffaqiyat Garovidir",
+                emoji: "🚀",
+                description: "Motivatsiya va muvaffaqiyat orasidagi munosabat",
+                fullDescription: "Motivatsiya bizni harakat qilishga undaydigan kuch. Muvaffaqiyat esa motivatsiya va mehnat natijasi. Bu bobda biz motivatsiyaning ustunligi va uni yo'l-yo'lagida ushlab turish usullarini o'rganamiz.",
+                content: {
+                    metodika: "Motivatsiyani ushlab turish uchun:\n• Har kuni kichik maqsadlarni belgilash\n• Muvaffaqiyatlarni taqvimga belgilash\n• Ilhomlanish manbalari qidirish",
+                    psixolog: "Psixolog sizning motivatsiya saboqlaringizni tahlil qilib, ularni oshirishga yordam beradi.",
+                    ijtimoiy: "Jamoada ishlash motivatsiyani yanada oshiradi va muvaffaqiyatga erishishni osonlashtiradi.",
+                    trening: "Nafi motivatsiyali odam topib, uning hikayasini qabul qiling va o'z yo'lingizda qa'y qilib davom eting"
+                },
+                videos: [
+                    { title: "Motivatsiya: Ichki va tashqi omillar", duration: "16:20" },
+                    { title: "Muvaffaqiyat qanday yoziladi?", duration: "19:45" },
+                    { title: "Motivatsiyani kayta-qo'llash", duration: "13:30" },
+                    { title: "Maqsadga erishish yo'li", duration: "17:15" },
+                    { title: "Ota-onalardan o'rganish", duration: "12:00" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Irodaviy Kuch",
+                emoji: "💪",
+                description: "Qatiy irada va uning kuchida",
+                fullDescription: "Irodaviy kuch - bu turli qiyinchiliklardan ortilish va o'z maqsadiga yetishning asosiy salohiyati. Kuchli iroda sizni engil ba'zilashdan saqlab turadi.",
+                content: {
+                    metodika: "Irodaviy kuchni rivojlantirish usullari:\n• Kunlik mashqlar\n• Qiyin vazifalarni qabul qilish\n• Intizamli hayot tartibi",
+                    psixolog: "Psixolog sizni o'z iradangizni kuchaytirish uchun xususiy strategiyalar o'rgatadi.",
+                    ijtimoiy: "Jamiyat sizning irodangizni tavzih etadi va yanada kuchayishiga sabab bo'ladi.",
+                    trening: "Kuniga 10 daqiqa o'zing uchun qiyin bo'lgan narsani qilish masalasini belgilang"
+                },
+                videos: [
+                    { title: "Iroda: Bu nima va undan foydalanish", duration: "14:00" },
+                    { title: "Qiyinchiliklarga qarshi kurash", duration: "16:50" },
+                    { title: "Intizam - iradaning asosi", duration: "15:30" },
+                    { title: "Negativizm bilan kurash", duration: "13:20" },
+                    { title: "Iradam kuchli ekanligini qanday bilaman?", duration: "11:45" }
+                ]
+            },
+            {
+                id: 4,
+                title: "Yuridik Maslahat",
+                emoji: "⚖️",
+                description: "Huquq va qonun asoslari",
+                fullDescription: "Yuridik bilim har bir fuqarani o'z huquqlarini himoya qilishda va mas'uliyatlarini tushunishda yordam beradi. Bu bo'limda asosiy yuridik tushunchalar beriladi.",
+                content: {
+                    metodika: "Yuridik talimning asoslari:\n• Konstitutsiya va qonunlarni o'rganish\n• Shaxsiy huquqlarni tushunish\n• Mas'uliyat va majburiyatlar",
+                    psixolog: "Yuridik maslahatchi sizning huquqlarini himoya qilish va tushunishda yordam beradi.",
+                    ijtimoiy: "Jamoada to'g'ri huquqiy farzandlik bilimlarni bo'lishish muhim ahamiyatga ega.",
+                    trening: "O'z hudud va shaxar qonunlarini chuqur o'rganing va ularni hayotda tatbiq qiling"
+                },
+                videos: [
+                    { title: "Qonun asoslari", duration: "18:00" },
+                    { title: "Shaxsiy huquqlar", duration: "16:30" },
+                    { title: "Konstitusiyani bilamizmi?", duration: "14:20" },
+                    { title: "Mehnat qonunlari", duration: "17:45" },
+                    { title: "Fozillik va masuliyatlar", duration: "15:10" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Emotsional Barqarorlik",
+                emoji: "🧘",
+                description: "Emotsiyalarni boshqarish va barqarori",
+                fullDescription: "Emotsional barqarorlik - bu hayotning turli vaziyatlarida xotirjam va muvozanatli bo'lishning qobiliyati. Bu bo'limda emotsiyalarni tushunish va ularni to'g'ri boshqarish o'rgatiladi.",
+                content: {
+                    metodika: "Emotsional barqarorlikni saqlash:\n• Meditatsiya va relaxatsiya\n• Sog'lom turmush tartibi\n• Stressni boshqarish",
+                    psixolog: "Psixolog sizni difficul emotsiyalarni hal qilishda va xotirjamlikka erishishda yordam beradi.",
+                    ijtimoiy: "Boshqalar bilan sog'lom munosabatlar emotsional barqarorligimizning asosi bo'ladi.",
+                    trening: "Har kuni 5 minutlik meditatsiya qiling va o'z emotsiyalaringizni kuzating"
+                },
+                videos: [
+                    { title: "Emotsiyalarni tanish va tushunish", duration: "15:30" },
+                    { title: "Stress bilan kurash usullari", duration: "17:00" },
+                    { title: "Meditatsiya uchun yo'l-yo'l", duration: "12:45" },
+                    { title: "Musbat pempe niyatlar", duration: "14:15" },
+                    { title: "O'z-o'ziga xos kalimalar", duration: "13:50" }
+                ]
+            },
+            {
+                id: 6,
+                title: "Diniy Ong",
+                emoji: "🕌",
+                description: "Diniy tushunchalar va o'z uyg'unliginiz",
+                fullDescription: "Diniy ong - bu o'z Xudo, ta'limot va ruhiy qadriyatlarimizning tushunchasining rivojlanishi. Bu bo'limda diniy asoslar va ularning hayotga ta'siri muhokama qilinadi.",
+                content: {
+                    metodika: "Diniy tushunchaslari rivojlantirish:\n• Dini manbalari o'rganish\n• Tafakkur va meditatsiya\n• Masuliyatli xizmat",
+                    psixolog: "Allohga yaqinligi o'ng-chap ruhiy salomatligi va barqarorligiga olib keladi.",
+                    ijtimoiy: "Diniy jamiyat bu-sotsial va ruhiy qo'llab-quvvatlashning muhim manbai.",
+                    trening: "Ruhiy rahbarmisiz topa, o'z yo'lingizni aniqlab yozing"
+                },
+                videos: [
+                    { title: "Dini ta'limoti asoslari", duration: "19:20" },
+                    { title: "Ibodat va ruhiyligi", duration: "16:45" },
+                    { title: "Qur'on va hayot", duration: "18:00" },
+                    { title: "Diniy xizmat", duration: "15:30" },
+                    { title: "Imanoviy rivojlanish", duration: "14:20" }
+                ]
+            },
+            {
+                id: 7,
+                title: "Mutaxassisga Ko'mak",
+                emoji: "👨‍⚕️",
+                description: "Mutaxassisdan malaka ko'mak olish",
+                fullDescription: "Mutaxassisga murojaat qilish shaxsiy o'sish va hayotiy muammolarni hal qilishning muhim bosqichi. Bu bo'limda mutaxassislar bilan ishlash jarayoni tushuntriladi.",
+                content: {
+                    metodika: "Mutaxassis tanlab qabul qilish:\n• To'g'ri mutaxassisni tanlash\n• Sessiyalarga tayyorlanish\n• Tavsiyalarni bajarish",
+                    psixolog: "Psixolog, shoyx, advokat va boshqa mutaxassislarning ko'magi sizni yangi qarasdan ko'rish imkonini beradi.",
+                    ijtimoiy: "Mutaxassisga murojaat qilish shaxsiy o'sishning yangi era boshlanishi ko'pincha.",
+                    trening: "Qaysi mutaxassisning ko'magiga ehtiyojingiz bor, o'ylang va izlab topishni boshlang"
+                },
+                videos: [
+                    { title: "Psixolog bilan ishlash", duration: "13:40" },
+                    { title: "Konsultatsiya olish qanday?", duration: "12:30" },
+                    { title: "Mutaxassis tanlash", duration: "14:50" },
+                    { title: "Shafqatli munosabatlar", duration: "15:20" },
+                    { title: "Kurs va treninglar", duration: "16:00" }
+                ]
+            },
+            {
+                id: 8,
+                title: "Biznes va Tadbirkorlik",
+                emoji: "💼",
+                description: "Tadbirkorlik yo'l-yo'lari va maqsadlari",
+                fullDescription: "Tadbirkorlik - bu bozorda o'z fikrlaringizni joriy etish va o'z taqdirlarini yaratish imkoniyati. Bu bo'limda biznes asoslari va tadbirkorlik ko'nikmalarini o'rganamiz.",
+                content: {
+                    metodika: "Biznesni boshlash uchun:\n• Biznes reja tuzish\n• Bozar tadqiqi qilish\n• Moliyaviy rejani yaratish",
+                    psixolog: "Boshlanuvchi tadbirkorlar tez-tez shubhalardan aziyat chekadi, psixolog bu yo'lda yordam beradi.",
+                    ijtimoiy: "Tadbirkorlar jamiyatga amaliy hissa qo'shadi va ishlashni yaratadi.",
+                    trening: "Biznes ideya yazib, uni tahlil qiling va boshlash qadamlarini aniqlang"
+                },
+                videos: [
+                    { title: "Biznes ideya qanday topish kerak?", duration: "17:30" },
+                    { title: "Biznes rejasini tuzish", duration: "19:00" },
+                    { title: "Moliyaviy boshlanish", duration: "16:20" },
+                    { title: "Sotish va marketing", duration: "18:45" },
+                    { title: "Muvaffaqiyatli tadbirkorlar", duration: "15:50" }
+                ]
+            }
+        ];
+
+        // DOM Elements
+        const categoriesView = document.getElementById('categoriesView');
+        const detailView = document.getElementById('detailView');
+        const backBtn = document.getElementById('backBtn');
+
+        // Render categories
+        function renderCategories() {
+            categoriesView.innerHTML = categories.map(category => `
+                <div class="category-card" onclick="showDetail(${category.id})" role="button" tabindex="0" onkeydown="if(event.key==='Enter')showDetail(${category.id})">
+                    <div class="category-image">${category.emoji}</div>
+                    <div class="category-content">
+                        <h2 class="category-title">${category.title}</h2>
+                        <p class="category-description">${category.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show category detail
+        function showDetail(categoryId) {
+            const category = categories.find(c => c.id === categoryId);
+            if (!category) return;
+
+            const videoGalleryHTML = category.videos.map(video => `
+                <div class="video-card" role="button" tabindex="0">
+                    <div class="video-thumbnail">
+                        <div class="play-icon">▶</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-duration">${video.duration}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            detailView.innerHTML = `
+                <div class="detail-header">
+                    <h1>${category.title}</h1>
+                    <p class="detail-description">${category.fullDescription}</p>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">📋 Metodika</div>
+                    <div class="section-content">${category.content.metodika.split('\n').map(line => {
+                if (line.startsWith('•')) return `<li>${line.substring(1).trim()}</li>`;
+                return line;
+            }).join('<ul>').replace(/\n/g, '</ul>')}</div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">👨‍⚕️ Psixolog Maslahat</div>
+                    <div class="section-content">${category.content.psixolog}</div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">👥 Ijtimoiy Rol</div>
+                    <div class="section-content">${category.content.ijtimoiy}</div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">🎓 Trening Dasturi</div>
+                    <div class="section-content">${category.content.trening}</div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-title">🎬 Video Galereyasi</div>
+                    <div class="video-gallery">${videoGalleryHTML}</div>
+                </div>
+            `;
+
+            categoriesView.classList.add('hidden');
+            detailView.classList.add('active');
+            backBtn.style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Go back to categories
+        function goBack() {
+            categoriesView.classList.remove('hidden');
+            detailView.classList.remove('active');
+            backBtn.style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Event listeners
+        backBtn.addEventListener('click', goBack);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && detailView.classList.contains('active')) {
+                goBack();
+            }
+        });
+
+        // Initialize
+        renderCategories();
+    </script>
+</body>
+
+</html>
