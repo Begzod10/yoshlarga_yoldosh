@@ -519,17 +519,53 @@
             min-height: 44px;
             min-width: 44px;
         }
+
+        .beautiful-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #D4A574 0%, #E8C4A0 100%);
+            color: #1A1A1A;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .beautiful-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.5);
+            background: linear-gradient(135deg, #E8C4A0 0%, #D4A574 100%);
+        }
+
+        .beautiful-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(212, 165, 116, 0.3);
+        }
+
+        .container {
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">📚 Bilim</div>
-            <button class="back-button" id="backBtn" aria-label="Orqaga qaytish">←</button>
-            <button style="display: flex; font-size: 1.3rem; border: 1px solid;" class="back-button" id="testBtn"
+            <div class="logo">📚 Yoshlarga yo'ldosh</div>
+            <div class="container">
+                <button style="display: none;" class="beautiful-btn" id="backBtn"
+                    aria-label="Orqaga qaytish">Orqaga</button>
+                <!-- <button style="display: flex; font-size: 1.3rem; border: 1px solid;" class="back-button" id="testBtn"
                 aria-label="Test yechish">Test
-                yechish</button>
+                yechish</button> -->
+                <button class="beautiful-btn">Test o'yechish</button>
+            </div>
         </div>
     </header>
 
